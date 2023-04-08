@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9967190929E1B7CE00EF1669 /* Parsing in Frameworks */ = {isa = PBXBuildFile; productRef = 9967190829E1B7CE00EF1669 /* Parsing */; };
 		999D972029E0E36400755F04 /* MoneyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999D971F29E0E36400755F04 /* MoneyApp.swift */; };
 		999D972229E0E36400755F04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999D972129E0E36400755F04 /* ContentView.swift */; };
 		999D972429E0E36500755F04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 999D972329E0E36500755F04 /* Assets.xcassets */; };
 		999D972729E0E36500755F04 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 999D972629E0E36500755F04 /* Preview Assets.xcassets */; };
 		999D973129E0E36500755F04 /* MoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999D973029E0E36500755F04 /* MoneyTests.swift */; };
+		999D974A29E0F40D00755F04 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999D974929E0F40D00755F04 /* ParserTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +34,7 @@
 		999D972629E0E36500755F04 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		999D972C29E0E36500755F04 /* MoneyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		999D973029E0E36500755F04 /* MoneyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
+		999D974929E0F40D00755F04 /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9967190929E1B7CE00EF1669 /* Parsing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				999D973029E0E36500755F04 /* MoneyTests.swift */,
+				999D974929E0F40D00755F04 /* ParserTests.swift */,
 			);
 			path = MoneyTests;
 			sourceTree = "<group>";
@@ -113,6 +118,9 @@
 			dependencies = (
 			);
 			name = Money;
+			packageProductDependencies = (
+				9967190829E1B7CE00EF1669 /* Parsing */,
+			);
 			productName = Money;
 			productReference = 999D971C29E0E36400755F04 /* Money.app */;
 			productType = "com.apple.product-type.application";
@@ -163,6 +171,9 @@
 				Base,
 			);
 			mainGroup = 999D971329E0E36400755F04;
+			packageReferences = (
+				9967190729E1B7CE00EF1669 /* XCRemoteSwiftPackageReference "swift-parsing" */,
+			);
 			productRefGroup = 999D971D29E0E36400755F04 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -206,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				999D974A29E0F40D00755F04 /* ParserTests.swift in Sources */,
 				999D973129E0E36500755F04 /* MoneyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +476,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9967190729E1B7CE00EF1669 /* XCRemoteSwiftPackageReference "swift-parsing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-parsing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9967190829E1B7CE00EF1669 /* Parsing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9967190729E1B7CE00EF1669 /* XCRemoteSwiftPackageReference "swift-parsing" */;
+			productName = Parsing;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 999D971429E0E36400755F04 /* Project object */;
 }
