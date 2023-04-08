@@ -12,19 +12,10 @@
 		999D972429E0E36500755F04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 999D972329E0E36500755F04 /* Assets.xcassets */; };
 		999D972729E0E36500755F04 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 999D972629E0E36500755F04 /* Preview Assets.xcassets */; };
 		999D973129E0E36500755F04 /* MoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999D973029E0E36500755F04 /* MoneyTests.swift */; };
-		999D973B29E0E36500755F04 /* MoneyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999D973A29E0E36500755F04 /* MoneyUITests.swift */; };
-		999D973D29E0E36500755F04 /* MoneyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999D973C29E0E36500755F04 /* MoneyUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		999D972D29E0E36500755F04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 999D971429E0E36400755F04 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 999D971B29E0E36400755F04;
-			remoteInfo = Money;
-		};
-		999D973729E0E36500755F04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 999D971429E0E36400755F04 /* Project object */;
 			proxyType = 1;
@@ -41,9 +32,6 @@
 		999D972629E0E36500755F04 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		999D972C29E0E36500755F04 /* MoneyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		999D973029E0E36500755F04 /* MoneyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
-		999D973629E0E36500755F04 /* MoneyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		999D973A29E0E36500755F04 /* MoneyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyUITests.swift; sourceTree = "<group>"; };
-		999D973C29E0E36500755F04 /* MoneyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,13 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		999D973329E0E36500755F04 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -76,7 +57,6 @@
 			children = (
 				999D971E29E0E36400755F04 /* Money */,
 				999D972F29E0E36500755F04 /* MoneyTests */,
-				999D973929E0E36500755F04 /* MoneyUITests */,
 				999D971D29E0E36400755F04 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,7 +66,6 @@
 			children = (
 				999D971C29E0E36400755F04 /* Money.app */,
 				999D972C29E0E36500755F04 /* MoneyTests.xctest */,
-				999D973629E0E36500755F04 /* MoneyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,15 +95,6 @@
 				999D973029E0E36500755F04 /* MoneyTests.swift */,
 			);
 			path = MoneyTests;
-			sourceTree = "<group>";
-		};
-		999D973929E0E36500755F04 /* MoneyUITests */ = {
-			isa = PBXGroup;
-			children = (
-				999D973A29E0E36500755F04 /* MoneyUITests.swift */,
-				999D973C29E0E36500755F04 /* MoneyUITestsLaunchTests.swift */,
-			);
-			path = MoneyUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,24 +135,6 @@
 			productReference = 999D972C29E0E36500755F04 /* MoneyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		999D973529E0E36500755F04 /* MoneyUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 999D974629E0E36500755F04 /* Build configuration list for PBXNativeTarget "MoneyUITests" */;
-			buildPhases = (
-				999D973229E0E36500755F04 /* Sources */,
-				999D973329E0E36500755F04 /* Frameworks */,
-				999D973429E0E36500755F04 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				999D973829E0E36500755F04 /* PBXTargetDependency */,
-			);
-			name = MoneyUITests;
-			productName = MoneyUITests;
-			productReference = 999D973629E0E36500755F04 /* MoneyUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,10 +149,6 @@
 						CreatedOnToolsVersion = 14.3;
 					};
 					999D972B29E0E36500755F04 = {
-						CreatedOnToolsVersion = 14.3;
-						TestTargetID = 999D971B29E0E36400755F04;
-					};
-					999D973529E0E36500755F04 = {
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 999D971B29E0E36400755F04;
 					};
@@ -221,7 +169,6 @@
 			targets = (
 				999D971B29E0E36400755F04 /* Money */,
 				999D972B29E0E36500755F04 /* MoneyTests */,
-				999D973529E0E36500755F04 /* MoneyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -237,13 +184,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		999D972A29E0E36500755F04 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		999D973429E0E36500755F04 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -270,15 +210,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		999D973229E0E36500755F04 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				999D973B29E0E36500755F04 /* MoneyUITests.swift in Sources */,
-				999D973D29E0E36500755F04 /* MoneyUITestsLaunchTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -286,11 +217,6 @@
 			isa = PBXTargetDependency;
 			target = 999D971B29E0E36400755F04 /* Money */;
 			targetProxy = 999D972D29E0E36500755F04 /* PBXContainerItemProxy */;
-		};
-		999D973829E0E36500755F04 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 999D971B29E0E36400755F04 /* Money */;
-			targetProxy = 999D973729E0E36500755F04 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -507,42 +433,6 @@
 			};
 			name = Release;
 		};
-		999D974729E0E36500755F04 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 47C966XSTJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.garrett-harris.adam.MoneyUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Money;
-			};
-			name = Debug;
-		};
-		999D974829E0E36500755F04 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 47C966XSTJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.garrett-harris.adam.MoneyUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Money;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -569,15 +459,6 @@
 			buildConfigurations = (
 				999D974429E0E36500755F04 /* Debug */,
 				999D974529E0E36500755F04 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		999D974629E0E36500755F04 /* Build configuration list for PBXNativeTarget "MoneyUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				999D974729E0E36500755F04 /* Debug */,
-				999D974829E0E36500755F04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
