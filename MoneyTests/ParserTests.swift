@@ -54,17 +54,64 @@ final class TransactionParsingTests: XCTestCase {
     }
     
     func test_commodity_withSpaces() throws {
-        let stockCommodity = """
-        "IBM Stocks"
-        """
+        let stockCommodity = "\"IBM Stocks\""
         let expectedCommodity = "IBM Stocks"
         let output = try commodity.parse(stockCommodity)
         XCTAssertEqual(output, expectedCommodity)
     }
     
-    func test_account_withUSD() throws {
+    func test_account_withUSDPrefix() throws {
         let usdAmount = "  $40"
         let expectedAmount = Amount(value: 40.0, commodity: "$")
+        let output = try amount.parse(usdAmount)
+        XCTAssertEqual(output, expectedAmount)
+    }
+    
+    func test_account_withUSDPrefixWithSpace() throws {
+        let usdAmount = "  $ 40"
+        let expectedAmount = Amount(value: 40.0, commodity: "$")
+        let output = try amount.parse(usdAmount)
+        XCTAssertEqual(output, expectedAmount)
+    }
+    
+    func test_account_withUSDPostfix() throws {
+        let usdAmount = "  40$"
+        let expectedAmount = Amount(value: 40.0, commodity: "$")
+        let output = try amount.parse(usdAmount)
+        XCTAssertEqual(output, expectedAmount)
+    }
+    
+    func test_account_withUSDPostfixWithSpace() throws {
+        let usdAmount = "  40 $"
+        let expectedAmount = Amount(value: 40.0, commodity: "$")
+        let output = try amount.parse(usdAmount)
+        XCTAssertEqual(output, expectedAmount)
+    }
+    
+    func test_account_withNegativeUSDPrefix() throws {
+        let usdAmount = "  $-40"
+        let expectedAmount = Amount(value: -40.0, commodity: "$")
+        let output = try amount.parse(usdAmount)
+        XCTAssertEqual(output, expectedAmount)
+    }
+    
+    func test_account_withNegativeUSDPrefixWithSpace() throws {
+        let usdAmount = "  $-40"
+        let expectedAmount = Amount(value: -40.0, commodity: "$")
+        let output = try amount.parse(usdAmount)
+        XCTAssertEqual(output, expectedAmount)
+    }
+    
+    func test_account_withNegativeUSDPostfix() throws {
+        let usdAmount = "  -40$"
+        let expectedAmount = Amount(value: -40.0, commodity: "$")
+        let output = try amount.parse(usdAmount)
+        XCTAssertEqual(output, expectedAmount)
+    }
+    
+    func test_account_withNegativeUSDPostfixWithSpace() throws {
+        let usdAmount = "  -40 $"
+        let expectedAmount = Amount(value: -40.0, commodity: "$")
         let output = try amount.parse(usdAmount)
         XCTAssertEqual(output, expectedAmount)
     }
@@ -77,7 +124,7 @@ final class TransactionParsingTests: XCTestCase {
     
     func test_posting_withUSD() throws {
         let foodPosting = """
-        Expenses:Food                $ 20.00
+        Expenses:Food                $20.00
         """
         let expectedPosting = Posting(
             account: "Expenses:Food",
