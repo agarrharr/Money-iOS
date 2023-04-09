@@ -67,7 +67,7 @@ let amount = Parse(input: Substring.self) {
 
 public struct Posting: Equatable {
     var account: String
-    var amount: Amount
+    var amount: Amount?
 }
 
 let posting = Parse(input: Substring.self) {
@@ -90,16 +90,16 @@ let posting = Parse(input: Substring.self) {
 typealias Postings = [Posting]
 
 let postings = Parse(input: Substring.self) {
+    posting
+    Whitespace(1, .vertical)
     Many {
         posting
     } separator: {
         "\n"
     }
 }
-    .map { ps in
-        ps.map { p in
-            Posting(account: p.account, amount: p.amount)
-        }
+    .map { (p1: Posting, ps: [Posting]) in
+        [p1] + ps
     }
 
 // MARK: - Transaction
