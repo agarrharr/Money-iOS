@@ -88,7 +88,7 @@ final class TransactionParserTests: XCTestCase {
     
     func test_posting_withUSD() throws {
         let foodPosting = """
-        Expenses:Food                $20.00
+         Expenses:Food                $20.00
         """
         let expectedPosting = Posting(
             account: "Expenses:Food",
@@ -97,11 +97,30 @@ final class TransactionParserTests: XCTestCase {
         let output = try posting.parse(foodPosting)
         XCTAssertEqual(output, expectedPosting)
     }
+        
+    func test_posting_mustHaveAtLeastOneLeadingSpace() throws {
+        let foodPosting = """
+        Expenses:Food                $20.00
+        """
+        let expectedPosting = Posting(
+            account: "Expenses:Food",
+            amount: Amount(value: 20.0, commodity: "$")
+        )
+        XCTAssertThrowsError(
+            try posting.parse(foodPosting),
+            """
+            1 | Expenses:Food                $20.00
+              | ^ expected " ""
+            """
+        )
+//        let output = try posting.parse(foodPosting)
+//        XCTAssertEqual(output, expectedPosting)
+    }
 
     func test_postings_withUSD() throws {
         let foodPostings = """
-        Expenses:Food                $ 20.00
-        Assets:Cash                 $ -20.00
+         Expenses:Food                $20.00
+         Assets:Cash                 $-20.00
         """
         let expectedPostings = [
             Posting(
@@ -120,8 +139,8 @@ final class TransactionParserTests: XCTestCase {
     func test_transaction_basic() throws {
         let foodTransaction = """
         2012-03-10 KFC
-            Expenses:Food                $ 20.00
-            Assets:Cash                 $ -20.00
+            Expenses:Food                $20.00
+            Assets:Cash                 $-20.00
         """
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd"
@@ -137,6 +156,52 @@ final class TransactionParserTests: XCTestCase {
         XCTAssertEqual(output, expectedTransaction)
     }
     
+    func test_transaction_postingsMustHaveAtLeastOneLeadingSpace() throws {
+        let foodTransaction = """
+        2012-03-10 KFC
+        Expenses:Food                $20.00
+        Assets:Cash                 $-20.00
+        """
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        let expectedTransaction = Transaction(
+            date: dateFormatter.date(from: "2012-03-10")!,
+            payee: "KFC",
+            postings: [
+                Posting(account: "Expenses:Food", amount: Amount(value: 20.0, commodity: "$")),
+                Posting(account: "Assets:Cash", amount: Amount(value: -20.0, commodity: "$")),
+            ]
+        )
+        
+        XCTAssertThrowsError(
+            try transaction.parse(foodTransaction),
+            """
+            2 | Expenses:Food                $20.00
+              | ^ expected " ""
+            """
+        )
+    }
+    
+//    func test_transaction_basicWithBlankAmount() throws {
+//        let foodTransaction = """
+//        2012-03-10 KFC
+//            Expenses:Food                $20.00
+//            Assets:Cash
+//        """
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-mm-dd"
+//        let expectedTransaction = Transaction(
+//            date: dateFormatter.date(from: "2012-03-10")!,
+//            payee: "KFC",
+//            postings: [
+//                Posting(account: "Expenses:Food", amount: Amount(value: 20.0, commodity: "$")),
+//                Posting(account: "Assets:Cash", amount: Amount(value: -20.0, commodity: "$")),
+//            ]
+//        )
+//        let output = try transaction.parse(foodTransaction)
+//        XCTAssertEqual(output, expectedTransaction)
+//    }
+//    
 //    func test_transaction_withEffectiveDate() throws {
 //        let foodTransaction = """
 //        2012-03-10=2012-03-12 KFC

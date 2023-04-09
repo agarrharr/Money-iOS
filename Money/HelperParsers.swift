@@ -3,6 +3,11 @@ import Parsing
 
 // MARK: - Helper Parsers
 
+public let oneOrMoreSpaces = Parse(input: Substring.self) {
+    " "
+    Prefix { $0 == .init(ascii: " ") }
+}
+
 public let zeroOrMoreSpaces = Parse(input: Substring.self) {
     Prefix { $0 == .init(ascii: " ") }
 }

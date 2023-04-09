@@ -70,9 +70,9 @@ public struct Posting: Equatable {
 }
 
 let posting = Parse(input: Substring.self) {
-    zeroOrMoreSpaces
+    oneOrMoreSpaces
     Prefix { $0 != " " }
-    zeroOrMoreSpaces
+    oneOrMoreSpaces
     amount
     zeroOrMoreSpaces
 }
@@ -117,15 +117,14 @@ struct Transaction: Equatable {
 }
 
 let transaction = Parse(input: Substring.self) {
-    zeroOrMoreSpaces
     Prefix { $0 != " " }
-    zeroOrMoreSpaces
+    oneOrMoreSpaces
     Prefix { $0 != "\n" }
     zeroOrMoreSpaces
     Whitespace(1, .vertical)
     postings
 }
-    .map { _, date, _, payee, _, postings in
+    .map { date, _, payee, _, postings in
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd"
         return Transaction(
