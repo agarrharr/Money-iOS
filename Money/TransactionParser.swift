@@ -10,6 +10,7 @@ let commodityWithSpaces = Parse(input: Substring.self) {
 }
 
 let commodityWithoutSpaces = Parse(input: Substring.self) {
+    // TODO: allow all non-numeric characters, but be careful about allowing dashes if it's in front of the double with no space
     Characters(in: CharacterSet(charactersIn: "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz$"), atLeast: 1)
 }
 
@@ -89,24 +90,17 @@ let posting = Parse(input: Substring.self) {
 typealias Postings = [Posting]
 
 let postings = Parse(input: Substring.self) {
-    posting
-    Whitespace(1, .vertical)
-    posting
-//separator: {
-//        "\n"
-//    }
-}
-    .map { p1, p2 in
-        [
-            Posting(account: p1.account, amount: p1.amount),
-            Posting(account: p2.account, amount: p2.amount)
-        ]
+    Many {
+        posting
+    } separator: {
+        "\n"
     }
-//    .map { ps in
-//        ps.map { p in
-//            Posting(account: p.account, amount: p.amount)
-//        }
-//    }
+}
+    .map { ps in
+        ps.map { p in
+            Posting(account: p.account, amount: p.amount)
+        }
+    }
 
 // MARK: - Transaction
 

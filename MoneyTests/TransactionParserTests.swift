@@ -3,6 +3,8 @@ import Parsing
 @testable import Money
 
 final class TransactionParserTests: XCTestCase {
+    // MARK: - Commodity
+    
     func test_commodity_withUSD() throws {
         let usdCommodity = "  $"
         let expectedCommodity = "$"
@@ -23,6 +25,8 @@ final class TransactionParserTests: XCTestCase {
         let output = try commodity.parse(stockCommodity)
         XCTAssertEqual(output, expectedCommodity)
     }
+    
+    // MARK: - Amount
     
     func test_account_withUSDPrefix() throws {
         let usdAmount = "  $40"
@@ -86,6 +90,8 @@ final class TransactionParserTests: XCTestCase {
         XCTAssertEqual(output, expectedAmount)
     }
     
+    // MARK: - Posting
+    
     func test_posting_withUSD() throws {
         let foodPosting = """
          Expenses:Food                $20.00
@@ -102,10 +108,6 @@ final class TransactionParserTests: XCTestCase {
         let foodPosting = """
         Expenses:Food                $20.00
         """
-        let expectedPosting = Posting(
-            account: "Expenses:Food",
-            amount: Amount(value: 20.0, commodity: "$")
-        )
         XCTAssertThrowsError(
             try posting.parse(foodPosting),
             """
@@ -113,10 +115,10 @@ final class TransactionParserTests: XCTestCase {
               | ^ expected " ""
             """
         )
-//        let output = try posting.parse(foodPosting)
-//        XCTAssertEqual(output, expectedPosting)
     }
 
+    // MARK: - Postings
+    
     func test_postings_withUSD() throws {
         let foodPostings = """
          Expenses:Food                $20.00
@@ -135,6 +137,8 @@ final class TransactionParserTests: XCTestCase {
         let output = try postings.parse(foodPostings)
         XCTAssertEqual(output, expectedPostings)
     }
+    
+    // MARK: - Transaction
     
     func test_transaction_basic() throws {
         let foodTransaction = """
@@ -164,14 +168,6 @@ final class TransactionParserTests: XCTestCase {
         """
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd"
-        let expectedTransaction = Transaction(
-            date: dateFormatter.date(from: "2012-03-10")!,
-            payee: "KFC",
-            postings: [
-                Posting(account: "Expenses:Food", amount: Amount(value: 20.0, commodity: "$")),
-                Posting(account: "Assets:Cash", amount: Amount(value: -20.0, commodity: "$")),
-            ]
-        )
         
         XCTAssertThrowsError(
             try transaction.parse(foodTransaction),
@@ -201,7 +197,7 @@ final class TransactionParserTests: XCTestCase {
 //        let output = try transaction.parse(foodTransaction)
 //        XCTAssertEqual(output, expectedTransaction)
 //    }
-//    
+//
 //    func test_transaction_withEffectiveDate() throws {
 //        let foodTransaction = """
 //        2012-03-10=2012-03-12 KFC
