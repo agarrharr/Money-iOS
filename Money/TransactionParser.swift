@@ -1,6 +1,24 @@
 import Foundation
 import Parsing
 
+// MARK: - Comment
+
+typealias Comment = String
+
+let comment = Parse(input: Substring.self) {
+    zeroOrMoreSpaces
+    OneOf {
+        ";"
+        "#"
+        "%"
+        "|"
+        "*"
+    }
+    " "
+    Prefix { $0 != "\n" }
+}
+    .map { _, comment in String(comment) }
+
 // MARK: - Commodity
 
 let commodityWithSpaces = Parse(input: Substring.self) {

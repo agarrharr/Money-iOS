@@ -3,6 +3,51 @@ import Parsing
 @testable import Money
 
 final class TransactionParserTests: XCTestCase {
+    // MARK: - Comment
+    func test_comment_withSemicolonAndNewLine() throws {
+        let semicolonComment = """
+        ; This is a comment "with quotes"
+        """
+        let expectedComment = "This is a comment \"with quotes\""
+        let output = try comment.parse(semicolonComment)
+        XCTAssertEqual(output, expectedComment)
+    }
+    
+    func test_comment_withSemicolon() throws {
+        let semicolonComment = " ; This is a comment "
+        let expectedComment = "This is a comment "
+        let output = try comment.parse(semicolonComment)
+        XCTAssertEqual(output, expectedComment)
+    }
+    
+    func test_comment_withPound() throws {
+        let semicolonComment = " # This is a comment "
+        let expectedComment = "This is a comment "
+        let output = try comment.parse(semicolonComment)
+        XCTAssertEqual(output, expectedComment)
+    }
+    
+    func test_comment_withPercent() throws {
+        let semicolonComment = " % This is a comment "
+        let expectedComment = "This is a comment "
+        let output = try comment.parse(semicolonComment)
+        XCTAssertEqual(output, expectedComment)
+    }
+    
+    func test_comment_withPipe() throws {
+        let semicolonComment = " | This is a comment "
+        let expectedComment = "This is a comment "
+        let output = try comment.parse(semicolonComment)
+        XCTAssertEqual(output, expectedComment)
+    }
+    
+    func test_comment_withAsterisk() throws {
+        let semicolonComment = " * This is a comment "
+        let expectedComment = "This is a comment "
+        let output = try comment.parse(semicolonComment)
+        XCTAssertEqual(output, expectedComment)
+    }
+    
     // MARK: - Commodity
     
     func test_commodity_withUSD() throws {
