@@ -166,6 +166,15 @@ final class TransactionParserTests: XCTestCase {
         XCTAssertEqual(output, expectedAmount)
     }
     
+//    func test_account_withCommodityWithQuotes() throws {
+//        let stockAmount = """
+//        40  "\"Rare\" 50 cent pieces"
+//        """
+//        let expectedAmount = Amount(value: 40.0, commodity: "\"Rare\" 50 cent pieces")
+//        let output = try amount.parse(stockAmount)
+//        XCTAssertEqual(output, expectedAmount)
+//    }
+    
     // MARK: - Posting
     
     func test_posting_withUSD() throws {
