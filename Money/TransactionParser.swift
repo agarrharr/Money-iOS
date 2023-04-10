@@ -24,14 +24,15 @@ let comment = Parse(input: Substring.self) {
 public typealias Commodity = String
 
 let commodityWithSpaces = Parse(input: Substring.self) {
+    // TODO: Allow escaping quotes (and backslash) with a backslash
     "\""
     PrefixUpTo("\"")
     "\""
 }
 
 let commodityWithoutSpaces = Parse(input: Substring.self) {
-    // TODO: allow all non-numeric characters, but be careful about allowing dashes if it's in front of the double with no space
-    Characters(in: CharacterSet(charactersIn: "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz$"), atLeast: 1)
+    // TODO: Should it allow dashes?
+    Prefix { !["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", " ", "\n"].contains($0) }
 }
 
 public let commodity = Parse(input: Substring.self) {
@@ -50,38 +51,23 @@ struct Amount: Equatable {
     var commodity: Commodity
 }
 
-let amountWithCommodityPrefix = Parse(input: Substring.self) {
-    zeroOrMoreSpaces
-    commodity
-    zeroOrMoreSpaces
-    Double.parser()
-}
-    .map { _, commodity, _, value in
-        Amount(
-            value: value,
-            commodity: String(commodity)
-        )
-    }
-
-let amountWithCommodityPostfix = Parse(input: Substring.self) {
-    zeroOrMoreSpaces
-    Double.parser()
-    zeroOrMoreSpaces
-    commodity
-}
-    .map { _, value, _, commodity in
-        Amount(
-            value: value,
-            commodity: String(commodity)
-        )
-    }
-
 let amount = Parse(input: Substring.self) {
-    OneOf {
-        amountWithCommodityPrefix
-        amountWithCommodityPostfix
-    }
+    zeroOrMoreSpaces
+    commodity
+    zeroOrMoreSpaces
+    Double.parser()
+    zeroOrMoreSpaces
+    commodity
 }
+    .map { _, prefixCommodity, _, value, _, postfixCommodity in
+        let commodity = prefixCommodity != "" ? String(prefixCommodity)
+        : String(postfixCommodity)
+        
+        return Amount(
+            value: value,
+            commodity: commodity
+        )
+    }
 
 // MARK: - Posting
 
@@ -144,7 +130,7 @@ let postings = Parse(input: Substring.self) {
     Many {
         posting
     } separator: {
-        "\n"
+        Whitespace(1, .vertical)
     }
 }
     .map { (p1: Posting, ps: [Posting]) in
