@@ -23,7 +23,7 @@ let comment = Parse(input: Substring.self) {
 
 public typealias Commodity = String
 
-let commodityWithSpaces = Parse(input: Substring.self) {
+let everythingInQuotes = Parse(input: Substring.self) {
     // TODO: Allow escaping quotes (and backslash) with a backslash
     "\""
     PrefixUpTo("\"")
@@ -38,7 +38,7 @@ let commodityWithoutSpaces = Parse(input: Substring.self) {
 public let commodity = Parse(input: Substring.self) {
     Skip { zeroOrMoreSpaces }
     OneOf {
-        commodityWithSpaces
+        everythingInQuotes
         commodityWithoutSpaces
     }
 }
