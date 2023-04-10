@@ -138,9 +138,7 @@ final class TransactionParserTests: XCTestCase {
     // MARK: - Posting
     
     func test_posting_withUSD() throws {
-        let foodPosting = """
-         Expenses:Food                $20.00
-        """
+        let foodPosting = " Expenses:Food                $20.00"
         let expectedPosting = Posting(
             account: "Expenses:Food",
             amount: Amount(value: 20.0, commodity: "$")
@@ -150,9 +148,7 @@ final class TransactionParserTests: XCTestCase {
     }
         
     func test_posting_mustHaveAtLeastOneLeadingSpace() throws {
-        let foodPosting = """
-        Expenses:Food                $20.00
-        """
+        let foodPosting = "Expenses:Food                $20.00 "
         XCTAssertThrowsError(
             try posting.parse(foodPosting),
             """
@@ -162,18 +158,16 @@ final class TransactionParserTests: XCTestCase {
         )
     }
     
-//    func test_posting_canOmitAmount() throws {
-//        let foodPosting = """
-//         Expenses:Food
-//        """
-//        let expectedPosting = Posting(
-//            account: "Expenses:Food",
-//            amount: nil
-//        )
-//        let output = try posting.parse(foodPosting)
-//        XCTAssertEqual(output, expectedPosting)
-//
-//    }
+    func test_posting_canOmitAmount() throws {
+        let foodPosting = " Expenses:Food "
+        let expectedPosting = Posting(
+            account: "Expenses:Food",
+            amount: nil
+        )
+        let output = try posting.parse(foodPosting)
+        XCTAssertEqual(output, expectedPosting)
+
+    }
 
     // MARK: - Postings
     
@@ -236,53 +230,34 @@ final class TransactionParserTests: XCTestCase {
         XCTAssertEqual(output, expectedPostings)
     }
     
-//    func test_postings_withOneMissingAmount() throws {
-//        let foodPostings = """
-//         Expenses:Food                $20.00
-//         Assets:Cash
-//        """
-//        let expectedPostings = [
-//            Posting(
-//                account: "Expenses:Food",
-//                amount: Amount(value: 20.0, commodity: "$")
-//            ),
-//            Posting(
-//                account: "Assets:Cash",
-//                amount: Amount(value: -20.0, commodity: "$")
-//            ),
-//        ]
-//        let output = try postings.parse(foodPostings)
-//        XCTAssertEqual(output, expectedPostings)
-//    }
-//
-//    func test_postings_withTwoMissingAmounts() throws {
-//        let foodPostings = """
-//         Expenses:Food                $20.00
-//         Assets:Checking
-//         Assets:Cash
-//        """
-//        let expectedPostings = [
-//            Posting(
-//                account: "Expenses:Food",
-//                amount: Amount(value: 20.0, commodity: "$")
-//            ),
-//            Posting(
-//                account: "Assets:Checking",
-//                amount: Amount(value: -10.0, commodity: "$")
-//            ),
-//            Posting(
-//                account: "Assets:Cash",
-//                amount: Amount(value: -10.0, commodity: "$")
-//            ),
-//        ]
-//        let output = try postings.parse(foodPostings)
-//        XCTAssertEqual(output, expectedPostings)
-////        XCTAssertThrowsError(
-////          try postings.parse(foodPostings),
-////          """
-////          """
-////        )
-//    }
+    func test_postings_withOneMissingAmount() throws {
+        let foodPostings = """
+         Expenses:Food                $20.00
+         Assets:Cash
+        """
+        let expectedPostings = [
+            Posting(
+                account: "Expenses:Food",
+                amount: Amount(value: 20.0, commodity: "$")
+            ),
+            Posting(
+                account: "Assets:Cash",
+                amount: Amount(value: -20.0, commodity: "$")
+            ),
+        ]
+        let output = try postings.parse(foodPostings)
+        XCTAssertEqual(output, expectedPostings)
+    }
+
+    func test_postings_withTwoMissingAmounts() throws {
+        let foodPostings = """
+         Expenses:Food                $20.00
+         Assets:Checking
+         Assets:Cash
+        """
+        
+        XCTAssertThrowsError(try postings.parse(foodPostings))
+    }
     
     // MARK: - Transaction
     
