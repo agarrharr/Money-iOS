@@ -6,7 +6,7 @@ import Parsing
 typealias Comment = String
 
 let comment = Parse(input: Substring.self) {
-    zeroOrMoreSpaces
+    Skip { zeroOrMoreSpaces }
     OneOf {
         ";"
         "#"
@@ -17,7 +17,7 @@ let comment = Parse(input: Substring.self) {
     " "
     Prefix { $0 != "\n" }
 }
-    .map { _, comment in String(comment) }
+    .map { comment in String(comment) }
 
 // MARK: - Commodity
 
@@ -36,13 +36,13 @@ let commodityWithoutSpaces = Parse(input: Substring.self) {
 }
 
 public let commodity = Parse(input: Substring.self) {
-    zeroOrMoreSpaces
+    Skip { zeroOrMoreSpaces }
     OneOf {
         commodityWithSpaces
         commodityWithoutSpaces
     }
 }
-    .map { _, commodity in String(commodity) }
+    .map { commodity in String(commodity) }
 
 // MARK: - Amount
 
@@ -52,14 +52,14 @@ struct Amount: Equatable {
 }
 
 let amount = Parse(input: Substring.self) {
-    zeroOrMoreSpaces
+    Skip { zeroOrMoreSpaces }
     commodity
-    zeroOrMoreSpaces
+    Skip { zeroOrMoreSpaces }
     Double.parser()
-    zeroOrMoreSpaces
+    Skip { zeroOrMoreSpaces }
     commodity
 }
-    .map { _, prefixCommodity, _, value, _, postfixCommodity in
+    .map { prefixCommodity, value, postfixCommodity in
         let commodity = prefixCommodity != "" ? String(prefixCommodity)
         : String(postfixCommodity)
         
@@ -77,13 +77,13 @@ public struct Posting: Equatable {
 }
 
 let postingWithAmount = Parse(input: Substring.self) {
-    oneOrMoreSpaces
+    Skip { oneOrMoreSpaces }
     Prefix { $0 != " " }
-    oneOrMoreSpaces
+    Skip { oneOrMoreSpaces }
     amount
-    zeroOrMoreSpaces
+    Skip { zeroOrMoreSpaces }
 }
-    .map { _, account, _, amount, _ in
+    .map { account, amount in
         Posting(
             account: String(account),
             amount: Amount(value: amount.value, commodity: String(amount.commodity))
@@ -92,11 +92,11 @@ let postingWithAmount = Parse(input: Substring.self) {
     }
 
 let postingWithoutAmount = Parse(input: Substring.self) {
-    oneOrMoreSpaces
+    Skip { oneOrMoreSpaces }
     Prefix { $0 != " " }
-    zeroOrMoreSpaces
+    Skip { zeroOrMoreSpaces }
 }
-    .map { _, account, _ in
+    .map { account in
         Posting(
             account: String(account),
             amount: nil
@@ -189,13 +189,13 @@ struct Transaction: Equatable {
 
 let transaction = Parse(input: Substring.self) {
     Prefix { $0 != " " }
-    oneOrMoreSpaces
+    Skip { oneOrMoreSpaces }
     Prefix { $0 != "\n" }
-    zeroOrMoreSpaces
+    Skip { zeroOrMoreSpaces }
     Whitespace(1, .vertical)
     postings
 }
-    .map { date, _, payee, _, postings in
+    .map { date, payee, postings in
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd"
         return Transaction(
