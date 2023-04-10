@@ -111,14 +111,6 @@ let posting = Parse(input: Substring.self) {
         
     }
 }
-//    .map { posting in  }
-//    .map { _, account, _, amount, _ in
-//        Posting(
-//            account: String(account),
-//            amount: Amount(value: amount.value, commodity: String(amount.commodity))
-//        )
-//
-//    }
 
 // MARK: - Postings
 
