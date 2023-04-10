@@ -299,26 +299,26 @@ final class TransactionParserTests: XCTestCase {
         )
     }
     
-//    func test_transaction_basicWithBlankAmount() throws {
-//        let foodTransaction = """
-//        2012-03-10 KFC
-//            Expenses:Food                $20.00
-//            Assets:Cash
-//        """
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-mm-dd"
-//        let expectedTransaction = Transaction(
-//            date: dateFormatter.date(from: "2012-03-10")!,
-//            payee: "KFC",
-//            postings: [
-//                Posting(account: "Expenses:Food", amount: Amount(value: 20.0, commodity: "$")),
-//                Posting(account: "Assets:Cash", amount: Amount(value: -20.0, commodity: "$")),
-//            ]
-//        )
-//        let output = try transaction.parse(foodTransaction)
-//        XCTAssertEqual(output, expectedTransaction)
-//    }
-//
+    func test_transaction_basicWithBlankAmount() throws {
+        let foodTransaction = """
+        2012-03-10 KFC
+            Expenses:Food                $20.00
+            Assets:Cash
+        """
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        let expectedTransaction = Transaction(
+            date: dateFormatter.date(from: "2012-03-10")!,
+            payee: "KFC",
+            postings: [
+                Posting(account: "Expenses:Food", amount: Amount(value: 20.0, commodity: "$")),
+                Posting(account: "Assets:Cash", amount: Amount(value: -20.0, commodity: "$")),
+            ]
+        )
+        let output = try transaction.parse(foodTransaction)
+        XCTAssertEqual(output, expectedTransaction)
+    }
+
 //    func test_transaction_withEffectiveDate() throws {
 //        let foodTransaction = """
 //        2012-03-10=2012-03-12 KFC
